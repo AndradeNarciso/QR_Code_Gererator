@@ -12,4 +12,5 @@ public class UserInterfaceController {
     public String home(){
         return "home.html";
     }
+
 }

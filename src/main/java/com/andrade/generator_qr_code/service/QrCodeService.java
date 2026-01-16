@@ -2,7 +2,6 @@ package com.andrade.generator_qr_code.service;
 
 import java.io.ByteArrayOutputStream;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.andrade.generator_qr_code.dto.Url;
@@ -27,8 +26,9 @@ public class QrCodeService {
 
     public byte[] generetorQrCodeService(Url url) {
 
-        String body=url.url();
-        if(!validator.isValidUrl(body)){
+        String body = url.url();
+        
+        if (!validator.isValidUrl(body)) {
             throw new InvalidUrlException("Invalid url");
         }
 
