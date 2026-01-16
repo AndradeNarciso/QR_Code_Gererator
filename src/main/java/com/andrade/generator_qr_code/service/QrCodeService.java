@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.andrade.generator_qr_code.dto.Url;
+import com.andrade.generator_qr_code.exception.InvalidUrlException;
+import com.andrade.generator_qr_code.util.QrCodeUtil;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
@@ -20,12 +22,15 @@ public class QrCodeService {
     private static final int height = 300;
     private static final int width = 300;
 
-    
+    private QrCodeUtil validator;
     private QRCodeWriter generatorQr;
 
     public byte[] generetorQrCodeService(Url url) {
 
         String body=url.url();
+        if(!validator.isValidUrl(body)){
+            throw new InvalidUrlException("Invalid url");
+        }
 
         try {
             BitMatrix bitMatrix = generatorQr.encode(body, BarcodeFormat.QR_CODE, width, height);
